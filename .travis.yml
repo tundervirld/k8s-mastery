@@ -1,0 +1,30 @@
+language: node_js
+node_js:
+    - "13.6"
+env:
+    - CXX=g++-4.8
+addons:
+    apt:
+        sources:
+            - ubuntu-toolchain-r-test
+        packages:
+            - g++-4.8
+install:
+    - npm install -g gitbook-cli  gitbook-plugin-lunr gitbook-plugin-fontsettings gitbook-plugin-highlight gitbook-plugin-sharing gitbook-plugin-livereload gitbook-plugin-theme-rtd2
+script:
+    - gitbook serve
+cache:
+    directories:
+        - "node_modules"
+notifications:
+    email: false
+deploy:
+    provider: pages
+    skip-cleanup: true
+    local_dir: docs
+    github-token: $GITHUB_TOKEN  # Set in the settings page of your repository, as a secure variable fde2c3b43b2189420b4fad333c5a4529c337d865
+    repo: tundervirld/k8s-mastery
+    keep-history: true
+    target-branch: gh-pages
+    on:
+      branch: gh-pages
